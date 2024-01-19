@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "name": "booking-app-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "repository": "https://github.com/RomaSamkov/booking-app-api.git",
+  "author": "RomaSamkov <Romansamkov.rs@gmail.com>",
+  "license": "MIT"
+}
