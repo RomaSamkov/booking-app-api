@@ -4,13 +4,15 @@ const { default: mongoose } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserModel = require("./models/User");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const bcryptSalt = bcrypt.genSaltSync(8);
-const jwtSecret = "randomsecret";
+const jwtSecret = process.env.SECRET_JWT;
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -61,6 +63,19 @@ app.post("/login", async (req, res) => {
       res.json("User not found");
     }
   } catch (error) {}
+});
+
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, async (err, userInfo) => {
+      if (err) throw err;
+      const { name, email, _id } = await UserModel.findById(userInfo.id);
+      res.json({ name, email, _id });
+    });
+  } else {
+    res.json(null);
+  }
 });
 
 app.listen(3000);
