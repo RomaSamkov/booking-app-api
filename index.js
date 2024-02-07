@@ -9,6 +9,7 @@ require("dotenv").config();
 
 const bcryptSalt = bcrypt.genSaltSync(8);
 const jwtSecret = process.env.SECRET_JWT;
+const port = process.env.PORT;
 
 const app = express();
 app.use(express.json());
@@ -82,4 +83,6 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json(true);
 });
 
-app.listen(3000);
+app.listen(port, () => {
+  console.log(`Server listening port on ${port}`);
+});
