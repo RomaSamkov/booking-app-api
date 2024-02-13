@@ -15,6 +15,7 @@ const port = process.env.PORT;
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(
   cors({
     credentials: true,
@@ -87,7 +88,7 @@ app.post("/logout", (req, res) => {
 app.post("/upload-by-link", async (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Date.now() + ".jpg";
-  const destination = __dirname + "/uploads" + newName;
+  const destination = __dirname + "/uploads/" + newName;
   await imageDownloader.image({
     url: link,
     dest: destination,
