@@ -130,7 +130,6 @@ app.post("/places", (req, res) => {
   } = req.body;
   jwt.verify(token, jwtSecret, {}, async (err, userInfo) => {
     if (err) throw err;
-
     const addedPlace = await PlaceModel.create({
       owner: userInfo.id,
       title,
