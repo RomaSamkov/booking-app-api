@@ -146,6 +146,14 @@ app.post("/places", (req, res) => {
   });
 });
 
+app.get("/places", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userInfo) => {
+    const { id } = userInfo;
+    res.json(await PlaceModel.find({ owner: id }));
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server listening port on ${port}`);
 });
