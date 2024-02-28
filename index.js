@@ -134,7 +134,7 @@ app.post("/places", (req, res) => {
       owner: userInfo.id,
       title,
       address,
-      addedPhotos,
+      photos: addedPhotos,
       description,
       perks,
       extraInfo,
@@ -152,6 +152,11 @@ app.get("/places", (req, res) => {
     const { id } = userInfo;
     res.json(await PlaceModel.find({ owner: id }));
   });
+});
+
+app.get("/places/:id", async (req, res) => {
+  const { id } = req.params;
+  res.json(await PlaceModel.findById(id));
 });
 
 app.listen(port, () => {
