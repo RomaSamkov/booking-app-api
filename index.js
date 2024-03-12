@@ -223,6 +223,15 @@ app.post("/bookings", (req, res) => {
     });
 });
 
+function getUserDataFromToken(req) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userInfo) => {
+      if (err) throw err;
+      resolve(userInfo);
+    });
+  });
+}
+
 app.listen(port, () => {
   console.log(`Server listening port on ${port}`);
 });
