@@ -26,7 +26,6 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 //     origin: "http://localhost:5173/",
 //   })
 // );
-
 const whitelist = ["http://localhost:5173"];
 const corsOptions = {
   credentials: true,
