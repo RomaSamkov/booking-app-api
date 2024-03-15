@@ -26,8 +26,8 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 //     origin: "http://localhost:5173/",
 //   })
 // );
-var whitelist = ["http://localhost:5173"];
-var corsOptions = {
+const whitelist = ["http://localhost:5173"];
+const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -39,7 +39,6 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// app.use(cors());
 
 mongoose.connect(process.env.MONGO_URL);
 
