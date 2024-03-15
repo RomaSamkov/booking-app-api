@@ -26,7 +26,20 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 //     origin: "http://localhost:5173/",
 //   })
 // );
-app.use(cors());
+var whitelist = ["http://localhost:5173"];
+var corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+// app.use(cors());
 
 mongoose.connect(process.env.MONGO_URL);
 
