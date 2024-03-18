@@ -20,8 +20,8 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
-var whitelist = ["http://localhost:5173"];
-var corsOptions = {
+const whitelist = ["http://localhost:5173"];
+const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
